@@ -7,14 +7,20 @@ var CLOUD_Y = 10;
 var CLOUD_GAP = 10;
 var CLOUD_COLOR = '#fff';
 var CLOUD_SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
+
+var FONT_COLOR = '#000';
 var FONT = '16px PT Mono';
 var FONT_GAP = 20;
-var TEXT_COLOR = '#000';
+var NAMES_BOTTOM_OFFSET = 30;
+var TIMES_BOTTOM_OFFSET = 2;
+var INTRO = 'Ура вы победили!\nСписок результатов:';
+
+var BAR_MAIN_COLOR = 'rgba(255, 0, 0, 1)';
 var BAR_WIDTH = 40;
 var BAR_MAX_HEIGHT = 150;
 var BAR_GAP = 50;
-var BAR_MAIN_COLOR = 'rgba(255, 0, 0, 1)';
-var INTRO = 'Ура вы победили!\nСписок результатов:';
+var BAR_BOTTOM_OFFSET = 40;
+
 
 var renderRect = function (ctx, x, y, color, width, height) {
   ctx.fillStyle = color;
@@ -28,12 +34,11 @@ var renderText = function (ctx, color, font, textBaseline, text, x, y) {
   ctx.fillText(text, x, y);
 };
 
-var renderIntro = function (ctx, str) {
-
-  var arr = str.split('\n');
+var renderIntro = function (ctx, text) {
+  var arr = text.split('\n');
 
   for (var i = 0; i < arr.length; i++) {
-    renderText(ctx, TEXT_COLOR, FONT, 'top', arr[i], CLOUD_X + FONT_GAP, CLOUD_Y + (i + 1) * FONT_GAP);
+    renderText(ctx, FONT_COLOR, FONT, 'top', arr[i], CLOUD_X + FONT_GAP, CLOUD_Y + (i + 1) * FONT_GAP);
   }
 };
 
@@ -65,8 +70,8 @@ window.renderStatistics = function (ctx, names, times) {
     var barHeight = Math.floor(times[i] * BAR_MAX_HEIGHT / maxTime);
     var x = CLOUD_X + 2 * FONT_GAP + i * BAR_WIDTH + i * BAR_GAP;
 
-    renderRect(ctx, x, CLOUD_Y + CLOUD_HEIGHT - 2 * FONT_GAP - barHeight, color, BAR_WIDTH, barHeight);
-    renderText(ctx, TEXT_COLOR, FONT, 'top', Math.floor(times[i]), x, CLOUD_Y + CLOUD_HEIGHT - 3 * FONT_GAP - barHeight);
-    renderText(ctx, TEXT_COLOR, FONT, 'bottom', names[i], x, CLOUD_Y + CLOUD_HEIGHT - FONT_GAP);
+    renderRect(ctx, x, CLOUD_Y + CLOUD_HEIGHT - BAR_BOTTOM_OFFSET - barHeight, color, BAR_WIDTH, barHeight);
+    renderText(ctx, FONT_COLOR, FONT, 'bottom', Math.floor(times[i]), x, CLOUD_Y + CLOUD_HEIGHT - BAR_BOTTOM_OFFSET - barHeight - TIMES_BOTTOM_OFFSET);
+    renderText(ctx, FONT_COLOR, FONT, 'top', names[i], x, CLOUD_Y + CLOUD_HEIGHT - NAMES_BOTTOM_OFFSET);
   }
 };
