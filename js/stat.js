@@ -14,6 +14,7 @@ var BAR_WIDTH = 40;
 var BAR_MAX_HEIGHT = 150;
 var BAR_GAP = 50;
 var BAR_MAIN_COLOR = 'rgba(255, 0, 0, 1)';
+var INTRO = 'Ура вы победили!\nСписок результатов:';
 
 var renderRect = function (ctx, x, y, color, width, height) {
   ctx.fillStyle = color;
@@ -25,6 +26,15 @@ var renderText = function (ctx, color, font, textBaseline, text, x, y) {
   ctx.font = font;
   ctx.textBaseline = textBaseline;
   ctx.fillText(text, x, y);
+};
+
+var renderIntro = function (ctx, str) {
+
+  var arr = str.split('\n');
+
+  for (var i = 0; i < arr.length; i++) {
+    renderText(ctx, TEXT_COLOR, FONT, 'top', arr[i], CLOUD_X + FONT_GAP, CLOUD_Y + (i + 1) * FONT_GAP);
+  }
 };
 
 var getMaxElement = function (times) {
@@ -46,8 +56,7 @@ var getRandomBlueColor = function () {
 window.renderStatistics = function (ctx, names, times) {
   renderRect(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, CLOUD_SHADOW_COLOR, CLOUD_WIDTH, CLOUD_HEIGHT);
   renderRect(ctx, CLOUD_X, CLOUD_Y, CLOUD_COLOR, CLOUD_WIDTH, CLOUD_HEIGHT);
-  renderText(ctx, TEXT_COLOR, FONT, 'top', 'Ура вы победили!', CLOUD_X + FONT_GAP, CLOUD_Y + FONT_GAP);
-  renderText(ctx, TEXT_COLOR, FONT, 'top', 'Список результатов:', CLOUD_X + FONT_GAP, CLOUD_Y + 2 * FONT_GAP);
+  renderIntro(ctx, INTRO);
 
   var maxTime = getMaxElement(times);
 
