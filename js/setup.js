@@ -16,20 +16,22 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .querySelector('.setup-similar-item');
 
 // Функция получения случайного элемента массива
-var getRandomItemFromArray = function (array = []) {
-  return array[getRandomInt(0, array.length)]; 
+var getRandomItemFromArray = function (array) {
+  var min = 0;
+  var max = array.length;
+  return array[Math.floor(Math.random() * (max - min)) + min];
 };
 
 // Функция генерации случайных данных
-var createWizardsArray = function (WIZARD_NAMES, WIZARD_SURNAMES, WIZARD_COAT_COLOR, WIZARD_EYES_COLOR, wizardsNumber) {
+var createWizardsArray = function () {
   var arr = [];
-  
+
   for (var i = 0; i < wizardsNumber; i++) {
     arr[i] = {
       name: getRandomItemFromArray(WIZARD_NAMES) + ' ' + getRandomItemFromArray(WIZARD_SURNAMES),
       coatColor: getRandomItemFromArray(WIZARD_COAT_COLOR),
       eyesColor: getRandomItemFromArray(WIZARD_EYES_COLOR)
-    }
+    };
   }
 
   return arr;
@@ -53,7 +55,7 @@ var insertWizards = function (wizards) {
   similarListElement.appendChild(fragment);
 };
 
-var wizards = createWizardsArray = function (WIZARD_NAMES, WIZARD_SURNAMES, WIZARD_COAT_COLOR, WIZARD_EYES_COLOR, 4);
+var wizards = createWizardsArray();
 insertWizards(wizards);
 
 document.querySelector('.setup-similar').classList.remove('hidden');
