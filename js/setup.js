@@ -2,9 +2,9 @@
 
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var WIZARD_COAT_COLOR = ['rgb (101, 137, 164)', 'rgb (241, 43, 107)', 'rgb (146, 100, 161)', 'rgb (56, 159, 117)', 'rgb (215, 210, 55)', 'rgb (0, 0, 0)'];
+var WIZARD_COAT_COLOR = ['rgb(101,137,164)', 'rgb(241,43,107)', 'rgb(146,100,161)', 'rgb(56,159,117)', 'rgb(215,210,55)', 'rgb(0,0,0)'];
 var WIZARD_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
-var wizardsNumber = 4;
+var WIZARDS_AMOUNT = 4;
 
 var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
@@ -23,17 +23,16 @@ var getRandomItemFromArray = function (array) {
 };
 
 // Функция генерации случайных данных
-var createWizardsArray = function () {
+var createWizardsArray = function (wizardsAmount) {
   var arr = [];
 
-  for (var i = 0; i < wizardsNumber; i++) {
-    arr[i] = {
+  for (var i = 0; i < wizardsAmount; i++) {
+    arr.push({
       name: getRandomItemFromArray(WIZARD_NAMES) + ' ' + getRandomItemFromArray(WIZARD_SURNAMES),
       coatColor: getRandomItemFromArray(WIZARD_COAT_COLOR),
       eyesColor: getRandomItemFromArray(WIZARD_EYES_COLOR)
-    };
+    });
   }
-
   return arr;
 };
 
@@ -55,7 +54,7 @@ var insertWizards = function (wizards) {
   similarListElement.appendChild(fragment);
 };
 
-var wizards = createWizardsArray();
+var wizards = createWizardsArray(WIZARDS_AMOUNT);
 insertWizards(wizards);
 
 document.querySelector('.setup-similar').classList.remove('hidden');
