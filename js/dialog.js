@@ -44,8 +44,8 @@
       document.removeEventListener('mouseup', onMouseUp);
 
       if (dragged) {
-        var onClickPreventDefault = function (evt) {
-          evt.preventDefault();
+        var onClickPreventDefault = function (e) {
+          e.preventDefault();
           setupHandler.removeEventListener('click', onClickPreventDefault);
         };
         setupHandler.addEventListener('click', onClickPreventDefault);
