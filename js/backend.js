@@ -10,6 +10,10 @@
 
   var ajax = function (onSuccess, onError, method, url, data) {
 
+    if (!data) {
+      data = null;
+    }
+
     var xhr = new XMLHttpRequest();
     xhr.responseType = RESPONSE_TYPE;
 

@@ -20,7 +20,7 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < SIMILAR_WIZARDS_AMOUNT; i++) {
-      var j = window.util.getRandomIntInclusive(0, wizards.length);
+      var j = window.util.getRandomIntInclusive(0, wizards.length - 1);
       fragment.appendChild(renderWizard(wizards[j]));
     }
     similarWizardsList.appendChild(fragment);
