@@ -2,49 +2,60 @@
 
 (function () {
 
-
+  var coatColor;
+  var eyesColor;
   var wizards = [];
 
+  window.wizard.wizard.onCoatChange = window.debounce(function (color) {
+    coatColor = color;
+    updateWizards();
+  });
 
-  function updateWizards() {
-    var coatColor = window.colorize.wizardCoat.style.fill;
-    var eyesColor = window.colorize.wizardEyes.style.fill ? window.colorize.wizardEyes.style.fill : 'black';
+  window.wizard.wizard.onEyesChange = window.debounce(function (color) {
+    eyesColor = color;
+    updateWizards();
+  });
 
-    var sameCoatAndEyesWizards = wizards.filter(function (it) {
-      return it.colorCoat === coatColor &&
-        it.colorEyes === eyesColor;
-    });
+  function getRank(wizard) {
+    var rank = 0;
 
-    var sameCoatWizards = wizards.filter(function (it) {
-      return it.colorCoat === coatColor;
-    });
+    if (wizard.colorCoat === coatColor) {
+      rank += 2;
+    }
+    if (wizard.colorEyes === eyesColor) {
+      rank += 1;
+    }
 
-    var sameEyesWizards = wizards.filter(function (it) {
-      return it.colorEyes === eyesColor;
-    });
-
-    var filteredWizards = sameCoatAndEyesWizards;
-    filteredWizards = filteredWizards.concat(sameCoatWizards);
-    filteredWizards = filteredWizards.concat(sameEyesWizards);
-    filteredWizards = filteredWizards.concat(wizards);
-
-    var uniqueWizards = filteredWizards.filter(function (it, i) {
-      return filteredWizards.indexOf(it) === i;
-    });
-
-    window.render.insertWizards(uniqueWizards);
+    return rank;
   }
 
+  function namesComparator(left, right) {
+    if (left > right) {
+      return 1;
+    } else if (left < right) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
 
-  var onSuccess = function (data) {
+  function updateWizards() {
+    window.wizard.renderWizards(wizards.sort(function (left, right) {
+      var rankDiff = getRank(right) - getRank(left);
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(left.name, right.name);
+      }
+      return rankDiff;
+    }));
+  }
+
+  function onSuccess(data) {
     wizards = data;
     updateWizards();
-  };
-
+  }
 
   window.similar = {
-    onSuccess: onSuccess,
-    updateWizards: updateWizards,
+    onSuccess: onSuccess
   };
 
 })();
