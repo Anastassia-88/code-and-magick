@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   var CLOUD_WIDTH = 420;
   var CLOUD_HEIGHT = 270;
   var CLOUD_X = 100;
@@ -23,27 +24,27 @@
   var BAR_BOTTOM_OFFSET = 40;
 
 
-  var renderRect = function (ctx, x, y, color, width, height) {
+  function renderRect(ctx, x, y, color, width, height) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, width, height);
-  };
+  }
 
-  var renderText = function (ctx, color, font, textBaseline, text, x, y) {
+  function renderText(ctx, color, font, textBaseline, text, x, y) {
     ctx.fillStyle = color;
     ctx.font = font;
     ctx.textBaseline = textBaseline;
     ctx.fillText(text, x, y);
-  };
+  }
 
-  var renderIntro = function (ctx, text) {
+  function renderIntro(ctx, text) {
     var arr = text.split('\n');
 
     for (var i = 0; i < arr.length; i++) {
       renderText(ctx, FONT_COLOR, FONT, 'top', arr[i], CLOUD_X + FONT_GAP, CLOUD_Y + (i + 1) * FONT_GAP);
     }
-  };
+  }
 
-  var getMaxElement = function (times) {
+  function getMaxElement(times) {
     var maxElement = times[0] ? times[0] : 0;
 
     for (var i = 1; i < times.length; i++) {
@@ -53,11 +54,11 @@
     }
 
     return maxElement;
-  };
+  }
 
-  var getRandomBlueColor = function () {
+  function getRandomBlueColor() {
     return 'hsl(240, ' + Math.floor(Math.random() * 100) + '%, 50%)';
-  };
+  }
 
   window.renderStatistics = function (ctx, names, times) {
     renderRect(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, CLOUD_SHADOW_COLOR, CLOUD_WIDTH, CLOUD_HEIGHT);
@@ -76,5 +77,6 @@
       renderText(ctx, FONT_COLOR, FONT, 'top', names[i], x, CLOUD_Y + CLOUD_HEIGHT - NAMES_BOTTOM_OFFSET);
     }
   };
+
 })();
 

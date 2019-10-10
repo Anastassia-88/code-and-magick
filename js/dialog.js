@@ -8,10 +8,10 @@
   var setupHandler = setup.querySelector('.upload');
   var userNameInput = setup.querySelector('.setup-user-name');
 
-  var METHOD_SAVE = 'POST';
-  var METHOD_LOAD = 'GET';
-  var URL_SAVE = 'https://js.dump.academy/code-and-magick';
-  var URL_LOAD = 'https://js.dump.academy/code-and-magick/data';
+  var METHOD_UPLOAD = 'POST';
+  var METHOD_DOWNLOAD = 'GET';
+  var URL_UPLOAD = 'https://js.dump.academy/code-and-magick';
+  var URL_DOWNLOAD = 'https://js.dump.academy/code-and-magick/data';
 
 
   // Перемещение окна настройки
@@ -44,7 +44,7 @@
 
     };
 
-    var onMouseUp = function (upEvt) {
+    function onMouseUp(upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
@@ -58,29 +58,29 @@
         setupHandler.addEventListener('click', onClickPreventDefault);
       }
 
-    };
+    }
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
 
   // Открытие и закрытие окна настройки
-  var onPopupEscPress = function (evt) {
+  function onPopupEscPress(evt) {
     window.util.isEscEvent(evt, closePopup);
-  };
+  }
 
-  var openPopup = function () {
+  function openPopup() {
     setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
-    window.backend.ajax(window.setup.insertWizards, window.backend.onError, METHOD_LOAD, URL_LOAD);
-  };
+    window.backend.ajax(window.similar.onSuccess, window.error.showErrorMessage, METHOD_DOWNLOAD, URL_DOWNLOAD);
+  }
 
-  var closePopup = function () {
+  function closePopup() {
     setup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
     setup.style.top = '';
     setup.style.left = '';
-  };
+  }
 
   setupOpen.addEventListener('click', function () {
     openPopup();
@@ -125,6 +125,6 @@
     evt.preventDefault();
     window.backend.ajax(function () {
       setup.classList.add('hidden');
-    }, window.backend.onError, METHOD_SAVE, URL_SAVE, new FormData(form));
+    }, window.error.showErrorMessage, METHOD_UPLOAD, URL_UPLOAD, new FormData(form));
   });
 })();
