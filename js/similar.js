@@ -6,12 +6,12 @@
   var eyesColor;
   var wizards = [];
 
-  window.wizard.wizard.onCoatChange = window.debounce(function (color) {
+  var onCoatChange = window.debounce(function (color) {
     coatColor = color;
     updateWizards();
   });
 
-  window.wizard.wizard.onEyesChange = window.debounce(function (color) {
+  var onEyesChange = window.debounce(function (color) {
     eyesColor = color;
     updateWizards();
   });
@@ -55,7 +55,9 @@
   }
 
   window.similar = {
-    onSuccess: onSuccess
+    onSuccess: onSuccess,
+    onCoatChange: onCoatChange,
+    onEyesChange: onEyesChange,
   };
 
 })();
