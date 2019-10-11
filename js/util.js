@@ -1,42 +1,44 @@
 'use strict';
 
 (function () {
+
   var setup = document.querySelector('.setup');
 
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
+  var KeyCode = {
+    ESC: 27,
+    ENTER: 13,
+  };
 
   var inputName = setup.querySelector('.setup-user-name');
 
-  var getRandomItemFromArray = function (array) {
+  function getRandomItemFromArray(array) {
     return array[Math.floor(Math.random() * array.length)];
-  };
+  }
 
-  var isEscEvent = function (evt, action) {
-    if (evt.keyCode === ESC_KEYCODE && document.activeElement !== inputName) {
+  function isEscEvent(evt, action) {
+    if (evt.keyCode === KeyCode.ESC && document.activeElement !== inputName) {
       action();
     }
-  };
+  }
 
-  var isEnterEvent = function (evt, action) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+  function isEnterEvent(evt, action) {
+    if (evt.keyCode === KeyCode.ENTER) {
       action();
     }
-  };
+  }
 
-  // Getting a random integer between two values
   // The maximum is inclusive and the minimum is inclusive
-  var getRandomIntInclusive = function (min, max) {
+  function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
+  }
 
-  var removeNodeContent = function (node) {
+  function removeNodeContent(node) {
     while (node.firstChild) {
       node.removeChild(node.firstChild);
     }
-  };
+  }
 
   window.util = {
     getRandomItemFromArray: getRandomItemFromArray,
@@ -45,4 +47,5 @@
     getRandomIntInclusive: getRandomIntInclusive,
     removeNodeContent: removeNodeContent,
   };
+
 })();
